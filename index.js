@@ -59,6 +59,13 @@ function ExpectationsPlugin(script, events) {
         defaultTags: reportingConfig.tags
       });
     }
+
+    if (typeof script.config.plugins.expect.strict === 'undefined') {
+      userContext.expectationsPlugin.strict = true;
+    } else {
+      userContext.expectationsPlugin.strict = script.config.plugins.expect.strict;
+    }
+
     return done();
   };
 
@@ -133,7 +140,7 @@ function expectationsPluginCheckExpectations(
 
   const failedExpectations = results.filter(res => !res.ok).length > 0;
 
-  if (failedExpectations) {
+  if (failedExpectations && userContext.expectationsPlugin.strict) {
     return done(new Error(`Failed expectations for request ${req.url}`));
   } else {
     return done();

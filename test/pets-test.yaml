@@ -4,7 +4,8 @@ config:
     - duration: 1
       arrivalCount: 1
   plugins:
-    expect: {}
+    expect:
+      strict: false
   payload:
     - path: "./urls.csv"
       fields:
@@ -14,6 +15,11 @@ config:
     maxErrorRate: 0
 scenarios:
   - flow:
+      - get:
+          name: "GET non-existent resource"
+          url: "/404"
+          expect:
+            - statusCode: 200
       - get:
           name: "List all pets"
           url: "/pets"

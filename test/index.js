@@ -76,7 +76,7 @@ test('Integration with Artillery', async (t) => {
 
   const output = result.stdout;
 
-  const EXPECTED_EXPECTATION_COUNT = 10;
+  const EXPECTED_EXPECTATION_COUNT = 11;
   const actualCount = output.split('\n').filter((s) => {
     return s.startsWith('  ok') || s.startsWith('  not ok');
   }).length;
